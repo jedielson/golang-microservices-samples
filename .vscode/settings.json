@@ -1,0 +1,7 @@
+{
+    "go.testOnSave": true,
+    "go.lintFlags": [
+        "--exclude=\"\bexported \\w+ (\\S*['.]*)([a-zA-Z'.*]*) should have comment or be unexported\b\"",
+        "--exclude=\"\berror strings should not be capitalized\b\""
+    ]
+}
