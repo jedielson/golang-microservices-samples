@@ -2,11 +2,11 @@ package actions
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 	"time"
 
 	"github.com/jedielson/jaeger-sample/internal/common"
+	"github.com/jedielson/jaeger-sample/internal/orders/api"
 	"github.com/jedielson/jaeger-sample/internal/umux"
 	"github.com/movidesk/go-gracefully"
 	"github.com/urfave/cli/v2"
@@ -19,11 +19,8 @@ func Run(c *cli.Context) error {
 	locator.RegisterLogrus(c)
 
 	r := umux.NewMuxRouter()
-
-	r.HandleFunc("/api/teste", func(rw http.ResponseWriter, r *http.Request) {
-		rw.WriteHeader(http.StatusOK)
-		io.WriteString(rw, "Olá Mundo")
-	}).Methods("GET")
+	api.NewOrdersApi(r)
+	api.NewHcApi(r)
 
 	log := locator.FindLogrus()
 	log.
