@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/jedielson/jaeger-sample/cmd/orders/service/actions"
+	"github.com/jedielson/jaeger-sample/internal/common"
 	"github.com/urfave/cli/v2"
 )
 
@@ -29,6 +30,11 @@ func main() {
 		Usage:   AppUsage,
 		Version: AppVersion,
 		Action:  actions.Run,
+		Flags: []cli.Flag{
+			common.PortFlag,
+			common.LocalFlag,
+			common.AmqpDsnFlag,
+		},
 	}
 
 	err := app.Run(os.Args)
