@@ -6,15 +6,13 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gorilla/mux"
 	"github.com/jedielson/jaeger-sample/internal/umux"
 	"github.com/movidesk/go-gracefully"
 	"github.com/urfave/cli/v2"
 )
 
 func Run(c *cli.Context) error {
-	r := mux.NewRouter()
-	r.Use(umux.PanicMiddleware)
+	r := umux.NewMuxRouter()
 
 	r.HandleFunc("/api/teste", func(rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(http.StatusOK)
