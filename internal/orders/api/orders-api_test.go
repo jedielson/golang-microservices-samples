@@ -18,8 +18,6 @@ type OrdersApiHandlerSuite struct {
 
 	req *http.Request
 	res *httptest.ResponseRecorder
-
-	urls OrdersApiUrls
 }
 
 func (s *OrdersApiHandlerSuite) SetupTest() {
@@ -27,12 +25,11 @@ func (s *OrdersApiHandlerSuite) SetupTest() {
 	s.res = httptest.NewRecorder()
 	s.router = mux.NewRouter()
 	NewOrdersApi(s.router)
-	s.urls = OrdersApiUrls{}.Get()
 }
 
 func (s *OrdersApiHandlerSuite) TestPlaceShouldReturn200() {
 	// arrange
-	s.req = httptest.NewRequest(http.MethodPost, s.urls.Place, nil)
+	s.req = httptest.NewRequest(http.MethodPost, "/api/orders/place", nil)
 
 	// act
 	s.router.ServeHTTP(s.res, s.req)

@@ -7,20 +7,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type OrdersApiUrls struct {
-	Place string
-}
-
-func (s OrdersApiUrls) Get() OrdersApiUrls {
-	return OrdersApiUrls{
-		Place: "/api/orders/place",
-	}
-}
-
 func NewOrdersApi(r *mux.Router) {
 
-	routes := OrdersApiUrls{}.Get()
-	r.HandleFunc(routes.Place, Place()).Methods("POST")
+	s := r.PathPrefix("/api/orders").Subrouter()
+	s.HandleFunc("/place", Place()).Methods("POST")
 }
 
 func Place() http.HandlerFunc {
